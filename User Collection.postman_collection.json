@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "35cb561d-574e-4677-927c-cb3a9011d65f",
+		"name": "User Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Positive Tests",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"check for token\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Content-Type is application/json; charset=utf-8\", function () {\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json; charset=utf-8\");\r",
+											"});\r",
+											"pm.test(\"Status code name has OK\", function () {\r",
+											"    pm.response.to.have.status(\"OK\");\r",
+											"});\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negaive Tests",
+					"item": [
+						{
+							"name": "Check blank email & password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Missing email or username\");\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(\"Bad Request\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check invalid email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"user not found\");\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(\"Bad Request\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holtreqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check valid email & blank password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Missing password\");\r",
+											"});\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(\"Bad Request\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Create User",
+			"item": [
+				{
+					"name": "Positive Tests",
+					"item": [
+						{
+							"name": "create user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"randomFirstName\", pm.variables.replaceIn('{{$randomFirstName}}'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{randomFirstName}}\",\r\n    \"job\": \"leader\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative Tests",
+					"item": [
+						{
+							"name": "Check get all users",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Response time is less than 1000ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"});\r",
+											"var issues = JSON.parse(responseBody);\r",
+											"var schema = {\r",
+											"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+											"    \"type\" : \"object\",\r",
+											"    \"items\" : {    \r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\": {\r",
+											"            \"page\": { \r",
+											"                \"type\": \"integer\" \r",
+											"            },\r",
+											"            \"per_page\": { \r",
+											"                \"type\": \"integer\" \r",
+											"            },\r",
+											"            \"total\": { \r",
+											"                \"type\": \"integer\" \r",
+											"            },\r",
+											"            \"total_pages\": { \r",
+											"                \"type\": \"integer\" \r",
+											"            },\r",
+											"            \"data\": {      \r",
+											"                \"type\" : [\"null\", \"object\"],\r",
+											"                \"properties\" : {\r",
+											"                    \"id\": { \r",
+											"                        \"type\": \"integer\" \r",
+											"                    },\r",
+											"                    \"email\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    },\r",
+											"                    \"first_name\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    },\r",
+											"                    \"last_name\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    },\r",
+											"                    \"avatar\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    }\r",
+											"                },\r",
+											"                \"additionalProperties\": true,\r",
+											"                \"required\": [ \"id\", \"email\",\"first_name\",\"last_name\",\"avatar\" ]\r",
+											"            },\r",
+											"            \"support\":{\r",
+											"                \"type\" : [\"null\", \"object\"],\r",
+											"                \"properties\" : {\r",
+											"                 \"url\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    },\r",
+											"                    \"text\": { \r",
+											"                        \"type\": \"string\" \r",
+											"                    }\r",
+											"                },\r",
+											"                \"additionalProperties\": true,\r",
+											"                \"required\": [ \"url\", \"text\" ]\r",
+											"            }\r",
+											"        },\r",
+											"        \r",
+											"        \"additionalProperties\": true,\r",
+											"        \"required\": [ \"page\",\"per_page\",\"total\",\"total_pages\",\"data\"]\r",
+											"    },\r",
+											"}\r",
+											"\r",
+											"tests[\"Valid schema\"] = tv4.validate(issues, schema);\r",
+											"console.log(tv4.error);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/users/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "randomFirstName",
+			"value": ""
+		}
+	]
+}
