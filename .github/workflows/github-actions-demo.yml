@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   test-api:
     runs-on: ubuntu-latest
