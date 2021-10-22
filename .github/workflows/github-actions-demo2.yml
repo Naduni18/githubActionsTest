@@ -29,6 +29,7 @@ jobs:
 
     # Run the POSTMAN collection
     - name: Run POSTMAN collection
+      if: contains( toJson(github), 'smoke' )
       run: |
        newman run "https://api.getpostman.com/collections/17611796-35cb561d-574e-4677-927c-cb3a9011d65f?apikey=${{ secrets.POSTMANAPIKEY }}"     --environment "https://api.getpostman.com/environments/17611796-5ea39ceb-4931-42a4-bea9-cf487e4c8282?apikey=${{ secrets.POSTMANAPIKEY }}" -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
