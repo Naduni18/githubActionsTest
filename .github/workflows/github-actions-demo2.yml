@@ -1,4 +1,4 @@
-name: Test-Build
+name: Test-Build2
 on:
   push:
     branches:
@@ -29,7 +29,6 @@ jobs:
 
     # Run the POSTMAN collection
     - name: Run POSTMAN collection
-      if: ${{ github.event.head_commit.message == 'smoke' }}
       run: |
        newman run ./tests/UserCollection.postman_collection.json -e ./tests/Test.postman_environment.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
