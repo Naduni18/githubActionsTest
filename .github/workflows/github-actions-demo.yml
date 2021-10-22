@@ -5,9 +5,9 @@ on:
       - main
 jobs:
   test-api:
-if: ${{ github.event.head_commit.message == 'smoke'}}
-runs-on: ubuntu-latest
-steps:
+        if: ${{ github.event.head_commit.message == 'smoke'}}
+        runs-on: ubuntu-latest
+  steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       
