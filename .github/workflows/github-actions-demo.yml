@@ -29,7 +29,7 @@ jobs:
 
     # Run the POSTMAN collection
     - name: Run POSTMAN collection
-      if: ${{ github.event.label.name == 'smoke' }}
+      if: ${{ github.issue.label.name == 'smoke' }}
       run: |
        newman run ./tests/UserCollection.postman_collection.json -e ./tests/Test.postman_environment.json -r htmlextra --reporter-htmlextra-export testResults/htmlreport.html --reporter-htmlextra-darkTheme  > testResults/runreport1.html
 
